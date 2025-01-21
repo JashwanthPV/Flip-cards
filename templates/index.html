@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcard Learning App</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1>Flashcard Learning App</h1>
+
+    <h2>Add a Flashcard</h2>
+    <form action="/add" method="POST">
+        <label for="question">Question:</label><br>
+        <textarea name="question" id="question" rows="2" required></textarea><br>
+        <label for="answer">Answer:</label><br>
+        <textarea name="answer" id="answer" rows="2" required></textarea><br>
+        <button type="submit">Add Flashcard</button>
+    </form>
+
+    <h2>Flashcards</h2>
+    <div id="flashcards">
+        {% for flashcard in flashcards %}
+        <div class="flashcard">
+            <div class="question">{{ flashcard.question }}</div>
+            <div class="answer hidden">{{ flashcard.answer }}</div>
+            <button class="flip-btn">Flip</button>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        // JavaScript to handle flipping flashcards
+        document.addEventListener("DOMContentLoaded", function() {
+            const buttons = document.querySelectorAll(".flip-btn");
+            buttons.forEach(button => {
+                button.addEventListener("click", function() {
+                    const flashcard = button.parentElement;
+                    flashcard.querySelector(".question").classList.toggle("hidden");
+                    flashcard.querySelector(".answer").classList.toggle("hidden");
+                });
+            });
+        });
+    </script>
+</body>
+</html>
